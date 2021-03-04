@@ -20,6 +20,20 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
+include_directories(/usr/local/include)
+
+add_executable(gpio_publisher src/gpio_publisher.cpp)
+ament_target_dependencies(gpio_publisher rclcpp std_msgs)
+
+add_executable(gpio_subscriber src/gpio_subscriber.cpp)
+ament_target_dependencies(gpio_subscriber rclcpp std_msgs)
+target_link_libraries(gpio_subscriber wiringPi -lrt -lcrypt)
+
+install(TARGETS
+  gpio_publisher
+  gpio_subscriber
+  DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
