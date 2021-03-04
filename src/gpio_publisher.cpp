@@ -35,7 +35,7 @@ private:
         RCLCPP_INFO(this->get_logger(), "GPIO state: '%d'", msg.data);
         gpio_publisher_->publish(msg);
         
-        toggle_ ^= toggle_;
+        toggle_ ^= true;
     }
     rclcpp::TimerBase::SharedPtr timer_;
     bool toggle_;
